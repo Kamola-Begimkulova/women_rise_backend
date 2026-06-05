@@ -1,0 +1,19 @@
+# Render Blueprint — deploys the WomenRise backend as a free web service.
+# In Render: New + → Blueprint → connect this repo. Render reads this file.
+services:
+  - type: web
+    name: womenrise-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      # Auto-generated strong secret for signing JWTs.
+      - key: WOMENRISE_SECRET
+        generateValue: true
+      - key: PYTHON_VERSION
+        value: "3.12.7"
+      # Optional: exact frontend origin(s), comma-separated. The app also
+      # allows any *.vercel.app via regex, so this is usually not required.
+      # - key: WOMENRISE_CORS
+      #   value: https://your-frontend.vercel.app
