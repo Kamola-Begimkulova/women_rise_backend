@@ -5,6 +5,7 @@ import os
 SECRET_KEY = os.getenv("WOMENRISE_SECRET", "womenrise-dev-secret-change-in-prod")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 60 * 24 * 7  # 7 days
+GOOGLE_CLIENT_ID = os.getenv("GOOGLE_CLIENT_ID", "")
 
 # Database — SQLite locally; set WOMENRISE_DB to a Postgres URL in production.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
