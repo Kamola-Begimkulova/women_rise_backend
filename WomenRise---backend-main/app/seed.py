@@ -28,8 +28,8 @@ def seed_database(db: Session) -> None:
         db.add(admin_user)
         db.commit()
 
-    if db.query(models.User).count() > 1:
-        return
+    # Do not seed demo data for production. Only keep the admin user.
+    return
 
     # ---------- Users ----------
     pw = hash_password("demo1234")

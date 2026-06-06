@@ -318,3 +318,22 @@ def get_stats_breakdown(
         },
         "recent_orders": recent_orders
     }
+
+@router.post("/reset-database")
+def reset_database(
+    db: Session = Depends(get_db),
+    admin: models.User = Depends(get_current_admin)
+):
+    # Clear all data except the admin user
+    db.query(models.Enrollment).delete()
+    db.query(models.OrderItem).delete()
+    db.query(models.Order).delete()
+    db.query(models.Product).delete()
+    db.query(models.Comment).delete()
+    db.query(models.Post).delete()
+    db.query(models.Mentorship).delete()
+    db.query(models.Course).delete()
+    db.query(models.User).filter(models.User.email != "admin@womenrise.org").delete()
+    db.commit()
+    return {"message": "Database successfully reset to production mode. All demo data cleared."}
+
