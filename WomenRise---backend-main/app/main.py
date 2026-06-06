@@ -11,7 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from . import config
 from .database import Base, engine, SessionLocal
-from .routers import auth, courses, marketplace, community
+from .routers import auth, courses, marketplace, community, admin
 from .seed import seed_database
 
 
@@ -47,6 +47,7 @@ app.include_router(auth.router)
 app.include_router(courses.router)
 app.include_router(marketplace.router)
 app.include_router(community.router)
+app.include_router(admin.router)
 
 
 @app.get("/api/health", tags=["health"])

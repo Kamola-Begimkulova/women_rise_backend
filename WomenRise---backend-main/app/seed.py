@@ -16,7 +16,19 @@ U = "https://images.unsplash.com/"
 
 
 def seed_database(db: Session) -> None:
-    if db.query(models.User).count() > 0:
+    # Ensure admin user is seeded regardless of other users
+    admin_exists = db.query(models.User).filter(models.User.email == "admin@womenrise.org").first()
+    if not admin_exists:
+        pw = hash_password("demo1234")
+        admin_user = models.User(
+            name="Admin User", email="admin@womenrise.org", password_hash=pw,
+            role="admin", bio="Site Administrator.",
+            avatar_url=U + "photo-1573497019940-1c28c88b4f3e?w=200&h=200&fit=crop",
+        )
+        db.add(admin_user)
+        db.commit()
+
+    if db.query(models.User).count() > 1:
         return
 
     # ---------- Users ----------
