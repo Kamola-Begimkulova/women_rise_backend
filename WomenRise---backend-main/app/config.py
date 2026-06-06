@@ -23,6 +23,8 @@ _DEFAULT_ORIGINS = [
     "http://127.0.0.1:5174",
     "http://localhost:4173",
     "http://localhost:3000",
+    "https://womenrise.uz",
+    "https://www.womenrise.uz",
 ]
 _extra = [o.strip() for o in os.getenv("WOMENRISE_CORS", "").split(",") if o.strip()]
 CORS_ORIGINS = _DEFAULT_ORIGINS + _extra
